@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bevd6wns7eiix"]
+[gd_scene load_steps=11 format=3 uid="uid://bevd6wns7eiix"]
 
 [ext_resource type="Script" uid="uid://ditinpr1lk0cp" path="res://Player/player.gd" id="1_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://cxnydhuw08s0b" path="res://Side view/pixel/trackshortpixel1.png" id="2_2hs0m"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://2okmyn7r0u6w" path="res://Side view/pixel/robotpixel.png" id="4_dw050"]
 [ext_resource type="Texture2D" uid="uid://bgl50g2eoaca5" path="res://Side view/pixel/tracklong pixel.png" id="5_b26j0"]
 [ext_resource type="Texture2D" uid="uid://df33h351bv2n1" path="res://Side view/pixel/tracklongpixel2.png" id="6_n7ghd"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_vtle1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
 size = Vector2(153, 126)
@@ -66,3 +67,11 @@ position = Vector2(-29, 40)
 scale = Vector2(2.68421, 2.24013)
 sprite_frames = SubResource("SpriteFrames_ivps1")
 frame_progress = 0.73547
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("7_vtle1")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
