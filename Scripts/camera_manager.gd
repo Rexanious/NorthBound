@@ -1,18 +1,17 @@
 extends Node2D
 
 @export var player = CharacterBody2D
-@export var camera_zone0 = PhantomCamera2D
-@export var camera_zone1 = PhantomCamera2D
-@export var camera_zone2 = PhantomCamera2D
-@export var camera_zone3 = PhantomCamera2D
-@export var camera_zone4 = PhantomCamera2D
-@export var camera_zone5 = PhantomCamera2D
+@onready var Camera_Zone0 = $"CameraNodes/Zone0-1/PhantomCamera2D"
+@onready var Camera_Zone1 = $"CameraNodes/Zone1-2/PhantomCamera2D"
+@onready var Camera_Zone2 
+@onready var Camera_Zone3 
+@onready var Camera_Zone4 
+
 var current_camera_zone: int= 0
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
+func _ready():
+	current_camera_zone = 0
+	update_camera()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -28,7 +27,20 @@ func update_current_zone(body, zone_a, zone_b):
 		update_camera()
 
 func update_camera():
+	var cameras = [Camera_Zone0, Camera_Zone1, Camera_Zone2, Camera_Zone3]
+	for camera in cameras:
+		if camera != null:
+			camera.priority = 0
+	match current_camera_zone:
+		0:
+			Camera_Zone0.priority = 1
+		1:
+			Camera_Zone1.priority = 1
 	print("Camera Zone: ", current_camera_zone)
 
 func _on_zone_01_body_entered(body: Node2D) -> void:
 	update_current_zone(body, 0, 1)
+
+
+func _on_zone_12_body_entered(body: Node2D) -> void:
+	update_current_zone(body, 1, 2) # Replace with function body.

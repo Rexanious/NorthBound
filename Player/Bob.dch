@@ -2,7 +2,7 @@
 "@path": "res://addons/dialogic/Resources/character.gd",
 "@subpath": NodePath(""),
 &"_translation_id": "",
-&"color": Color(1, 1, 1, 1),
+&"color": Color(1, 0.106771, 0.106771, 1),
 &"custom_info": {
 "prefix": "",
 "sound_mood_default": "",
@@ -10,18 +10,17 @@
 "style": "Bobbystyle",
 "suffix": ""
 },
-&"default_portrait": "Default",
+&"default_portrait": "Group/Neutral",
 &"description": "",
 &"display_name": "Bob",
 &"mirror": false,
 &"nicknames": [""],
 &"offset": Vector2(0, 0),
 &"portraits": {
-"Default": {
+"Group/Neutral": {
 "export_overrides": {
-"image": "\"res://Side view/robot_redBody.png\""
+"image": "\"res://Side view/pixel/pixelbodyred.png\""
 },
-"ignore_char_scale": false,
 "mirror": false,
 "offset": Vector2(0, 0),
 "scale": 1,
