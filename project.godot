@@ -80,7 +80,8 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/godo
 
 folder_colors={
 "res://Images/": "red",
-"res://Player/": "yellow"
+"res://Player/": "yellow",
+"res://Sound/": "green"
 }
 
 [global_group]

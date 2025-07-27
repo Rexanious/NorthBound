@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c17tmoci87nsg"]
+[gd_scene load_steps=33 format=3 uid="uid://c17tmoci87nsg"]
 
 [ext_resource type="PackedScene" uid="uid://bevd6wns7eiix" path="res://Player/player.tscn" id="1_n0qsc"]
 [ext_resource type="Script" uid="uid://dlywonogbmt80" path="res://Levels/level_1.gd" id="1_syshm"]
@@ -14,6 +14,11 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="12_lk57d"]
 [ext_resource type="Texture2D" uid="uid://bejacpvp4j6lh" path="res://Images/Tilesetfinishedground.png" id="13_lk57d"]
 [ext_resource type="PackedScene" uid="uid://mwg522l61hue" path="res://Scenes/Metal.tscn" id="14_2hkqn"]
+[ext_resource type="Script" uid="uid://c7wv4u4pyyi3o" path="res://Levels/talkingclick.gd" id="15_34erp"]
+[ext_resource type="PackedScene" uid="uid://der01sokohuo8" path="res://Scenes/spikes.tscn" id="16_77l7m"]
+[ext_resource type="Script" uid="uid://blcpgyvkd5pcj" path="res://Scenes/spikes.gd" id="17_1rr3k"]
+[ext_resource type="AudioStream" uid="uid://x2phfe65ey53" path="res://Sound/OuchSound.wav" id="18_hsj5a"]
+[ext_resource type="AudioStream" uid="uid://4ysv8b6nk6bi" path="res://Sound/CrashSound.wav" id="19_1rr3k"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nvl01"]
 animations = [{
@@ -83,7 +88,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hkqn"]
-size = Vector2(25, 365)
+size = Vector2(1, 365)
 
 [sub_resource type="Resource" id="Resource_2hkqn"]
 script = ExtResource("12_lk57d")
@@ -92,7 +97,7 @@ transition = 0
 ease = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lk57d"]
-size = Vector2(39, 495)
+size = Vector2(4, 495)
 
 [sub_resource type="Resource" id="Resource_34erp"]
 script = ExtResource("12_lk57d")
@@ -203,6 +208,9 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/3 = SubResource("TileSetAtlasSource_2hkqn")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2bse"]
+size = Vector2(136, 176)
+
 [node name="Level 1" type="Node2D"]
 script = ExtResource("1_syshm")
 
@@ -293,7 +301,7 @@ player = NodePath("../Player")
 [node name="Zone0-1" type="Area2D" parent="CameraManager/CameraNodes"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraManager/CameraNodes/Zone0-1"]
-position = Vector2(1152.5, 467)
+position = Vector2(1150.5, 467)
 shape = SubResource("RectangleShape2D_2hkqn")
 
 [node name="PhantomCamera2D" type="Node2D" parent="CameraManager/CameraNodes/Zone0-1"]
@@ -325,12 +333,82 @@ layer_0/tile_data = PackedInt32Array(0, 65539, 1, 1, 65539, 1, 2, 65539, 1, 3, 6
 
 [node name="Metal" parent="." instance=ExtResource("14_2hkqn")]
 position = Vector2(1515, 163)
+scale = Vector2(1.74189, 1.63355)
 
 [node name="Metal2" parent="." instance=ExtResource("14_2hkqn")]
 position = Vector2(1709, 163)
+scale = Vector2(1.63117, 1.63117)
 
 [node name="Metal3" parent="." instance=ExtResource("14_2hkqn")]
 position = Vector2(1919, 163)
+scale = Vector2(1.88584, 1.88584)
+
+[node name="Bob2" type="StaticBody2D" parent="."]
+position = Vector2(1387, 540)
+scale = Vector2(0.480375, 0.480375)
+
+[node name="Backwardtrack" type="AnimatedSprite2D" parent="Bob2"]
+light_mask = 0
+texture_filter = 1
+position = Vector2(-60, 41)
+rotation = -3.14159
+scale = Vector2(2.188, -2.188)
+sprite_frames = SubResource("SpriteFrames_nvl01")
+frame_progress = 0.73547
+
+[node name="Sprite2D" type="Sprite2D" parent="Bob2"]
+texture_filter = 1
+position = Vector2(1, 4)
+rotation = -3.14159
+scale = Vector2(2.51847, -1.71671)
+texture = ExtResource("5_f4pg2")
+
+[node name="Forwardtrack" type="AnimatedSprite2D" parent="Bob2"]
+texture_filter = 1
+position = Vector2(30, 40)
+rotation = -3.14159
+scale = Vector2(2.684, -2.24)
+sprite_frames = SubResource("SpriteFrames_ivps1")
+frame_progress = 0.73547
+
+[node name="talkingclick" type="Area2D" parent="Bob2"]
+position = Vector2(72.8594, 14.572)
+scale = Vector2(2.08171, 2.08171)
+script = ExtResource("15_34erp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bob2/talkingclick"]
+position = Vector2(-38, -56)
+shape = SubResource("RectangleShape2D_k2bse")
+
+[node name="Control help" type="Label" parent="Bob2"]
+offset_left = -224.824
+offset_top = -231.069
+offset_right = 264.176
+offset_bottom = -197.069
+theme_override_font_sizes/font_size = 24
+text = "Press X to Activate your magnetic abilities!"
+
+[node name="Spikes" parent="." instance=ExtResource("16_77l7m")]
+position = Vector2(1633, 544)
+scale = Vector2(3.95499, 3.95499)
+script = ExtResource("17_1rr3k")
+respawn_position = Vector2(1387, 540)
+
+[node name="Spikes2" parent="." instance=ExtResource("16_77l7m")]
+position = Vector2(1743, 544)
+scale = Vector2(3.95499, 3.95499)
+script = ExtResource("17_1rr3k")
+respawn_position = Vector2(1387, 540)
+
+[node name="OuchSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("18_hsj5a")
+volume_db = 24.0
+max_distance = 9946.0
+
+[node name="CrashSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("19_1rr3k")
 
 [connection signal="body_entered" from="CameraManager/CameraNodes/Zone0-1" to="CameraManager" method="_on_zone_01_body_entered"]
 [connection signal="body_entered" from="CameraManager/CameraNodes/Zone1-2" to="CameraManager" method="_on_zone_12_body_entered"]
+[connection signal="body_entered" from="Bob2/talkingclick" to="Bob2/talkingclick" method="_on_body_entered"]
+[connection signal="body_exited" from="Bob2/talkingclick" to="Bob2/talkingclick" method="_on_body_exited"]

@@ -9,6 +9,7 @@ const JUMP_VELOCITY = -400.0
 @export var magnet_pull_force := 800.0
 @export var magnet_jump_force := 600.0
 @export var magnet_range := 100000.0
+@onready var crash_sound = $"../CrashSound"
 
 var nearest_metal = null
 
@@ -33,6 +34,13 @@ func _physics_process(delta):
 		pull_toward_metal()
 	
 	move_and_slide()
+	
+	for i in get_slide_collision_count():
+		var collider = get_slide_collision(i).get_collider()
+		if collider.is_in_group("Metal"):
+			crash_sound.play()  # Play sound on ANY metal collision
+			velocity = Vector2.ZERO  # Still stop movement
+			break
 
 func find_nearest_metal():
 	nearest_metal = null

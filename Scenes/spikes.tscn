@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://der01sokohuo8"]
+
+[ext_resource type="Texture2D" uid="uid://ej1m1p8vkgpd" path="res://Images/spikes02.png" id="1_a5dqs"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_gwqs2"]
+points = PackedVector2Array(7, -8, -7, -8, -14, 8, 14, 8)
+
+[node name="Spikes" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0)
+shape = SubResource("ConvexPolygonShape2D_gwqs2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_a5dqs")
