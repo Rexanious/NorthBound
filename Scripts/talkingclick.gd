@@ -1,6 +1,6 @@
 extends Area2D
 @onready var body = $"../../Player"
-var player_in_range = false
+@onready var player_in_range = false
 @onready var label = $"../Control help"
 
 

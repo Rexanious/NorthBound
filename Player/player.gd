@@ -10,6 +10,14 @@ const JUMP_VELOCITY = -400.0
 @export var magnet_jump_force := 600.0
 @export var magnet_range := 100000.0
 @onready var crash_sound = $"../CrashSound"
+var already_played_sound := false
+
+@export var dust_particles: GPUParticles2D
+@export var camera: PhantomCamera2D  
+
+# Camera shake parameters
+@export var shake_strength: float = 10.0
+@export var shake_duration: float = 0.3
 
 var nearest_metal = null
 
@@ -18,8 +26,6 @@ func _physics_process(delta):
 		# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction:
 		velocity.x = direction * SPEED
@@ -35,13 +41,24 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
+	if get_slide_collision_count() == 0:
+		already_played_sound = false
+	
 	for i in get_slide_collision_count():
-		var collider = get_slide_collision(i).get_collider()
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
 		if collider.is_in_group("Metal"):
-			crash_sound.play()  # Play sound on ANY metal collision
-			velocity = Vector2.ZERO  # Still stop movement
+			if !already_played_sound:
+				crash_sound.play()
+				  # Spawn dust at collision point
+				dust_particles.global_position = collision.get_position()
+				dust_particles.emitting = true
+ # Camera shake
+				camera.shake(shake_strength, shake_duration)
+				already_played_sound = true
+				
+			velocity = Vector2.ZERO
 			break
-
 func find_nearest_metal():
 	nearest_metal = null
 	var min_distance = magnet_range

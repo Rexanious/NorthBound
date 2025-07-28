@@ -3,7 +3,7 @@ extends Node2D
 @export var player = CharacterBody2D
 @onready var Camera_Zone0 = $"CameraNodes/Zone0-1/PhantomCamera2D"
 @onready var Camera_Zone1 = $"CameraNodes/Zone1-2/PhantomCamera2D"
-@onready var Camera_Zone2 
+@onready var Camera_Zone2 = $"CameraNodes/zone2-3/PhantomCamera2D"
 @onready var Camera_Zone3 
 @onready var Camera_Zone4 
 
@@ -36,6 +36,8 @@ func update_camera():
 			Camera_Zone0.priority = 1
 		1:
 			Camera_Zone1.priority = 1
+		2:
+			Camera_Zone2.priority = 1
 	print("Camera Zone: ", current_camera_zone)
 
 func _on_zone_01_body_entered(body: Node2D) -> void:

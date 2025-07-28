@@ -7,6 +7,7 @@ func _ready():
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body):
-	body.global_position = respawn_position
-	$"../OuchSound".play()
+	if body.name == "Player":
+		body.global_position = respawn_position
+		$"../../OuchSound".play()
 	
